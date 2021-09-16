@@ -112,12 +112,11 @@ public class CliEngine implements Runnable {
   }
 
   private String toOutputFormat(OrientedPosition position, Grid grid) {
-    // TODO switch to character format
     return String.format(
         "%d %d %s%s",
         position.getX(),
         position.getY(),
-        position.getOrientation(),
+        position.getOrientation().getShortName(),
         grid.containsPosition(position) ? "" : " LOST"
     );
   }

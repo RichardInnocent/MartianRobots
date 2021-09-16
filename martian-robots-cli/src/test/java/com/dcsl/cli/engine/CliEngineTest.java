@@ -138,7 +138,14 @@ class CliEngineTest {
 
   private void verifyCoordinatesPrinted(OrientedPosition position, int numberOfTimes) {
     verify(outputStream, times(numberOfTimes)).println(
-        eq(String.format("%d %d %s", position.getX(), position.getY(), position.getOrientation()))
+        eq(
+            String.format(
+                "%d %d %s",
+                position.getX(),
+                position.getY(),
+                position.getOrientation().getShortName()
+            )
+        )
     );
   }
 
@@ -149,7 +156,7 @@ class CliEngineTest {
                 "%d %d %s LOST",
                 position.getX(),
                 position.getY(),
-                position.getOrientation()
+                position.getOrientation().getShortName()
             )
         )
     );
