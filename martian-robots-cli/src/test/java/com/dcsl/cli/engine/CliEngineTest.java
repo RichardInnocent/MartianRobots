@@ -44,7 +44,7 @@ class CliEngineTest {
     engine.run();
     verifyIntroductionPrinted();
     verifyGridInitialisationMessagePrinted();
-    verifyCoordinatesPrintedOUtOfBounds(position);
+    verifyCoordinatesPrintedOutOfBounds(position);
   }
 
   @Test
@@ -142,7 +142,7 @@ class CliEngineTest {
     );
   }
 
-  private void verifyCoordinatesPrintedOUtOfBounds(OrientedPosition position) {
+  private void verifyCoordinatesPrintedOutOfBounds(OrientedPosition position) {
     verify(outputStream).println(
         eq(
             String.format(
