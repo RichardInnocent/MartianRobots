@@ -2,6 +2,9 @@ package com.dcsl.cli.engine.factory.grid;
 
 import com.dcsl.position.grid.MarsGrid;
 
+/**
+ * Abstract implementation of the {@link GridFactory}.
+ */
 public abstract class AbstractMarsGridFactory implements GridFactory {
 
   @Override

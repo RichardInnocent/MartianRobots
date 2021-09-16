@@ -17,6 +17,9 @@ import com.dcsl.commands.executor.SimpleCommandExecutor;
 import com.dcsl.position.grid.Grid;
 import com.dcsl.robots.MarsRobot;
 
+/**
+ * Responsible for handling consumer input, and the application state.
+ */
 public class StateControlledInputProcessor implements InputProcessor, StateHolder {
 
   private final List<InterfaceState> interfaceStates;
@@ -46,7 +49,10 @@ public class StateControlledInputProcessor implements InputProcessor, StateHolde
 
   @Override
   public Optional<String> process(String input) throws IllegalArgumentException {
+    // Process the input
     Optional<String> result = interfaceStates.get(currentInterfaceStateIndex).process(input);
+
+    // If successful, increment the application state
     incrementInterfaceState();
     return result;
   }
@@ -57,18 +63,22 @@ public class StateControlledInputProcessor implements InputProcessor, StateHolde
         currentInterfaceStateIndex == 2 ? 1 : currentInterfaceStateIndex + 1;
   }
 
+  @Override
   public Grid getGrid() {
     return grid;
   }
 
+  @Override
   public void setGrid(Grid grid) {
     this.grid = grid;
   }
 
+  @Override
   public MarsRobot getRobot() {
     return robot;
   }
 
+  @Override
   public void setRobot(MarsRobot robot) {
     this.robot = robot;
   }

@@ -5,6 +5,14 @@ import com.dcsl.position.Orientation;
 import com.dcsl.robots.MarsRobot;
 import com.dcsl.robots.MartianRobot;
 
+/**
+ * An implementation of a {@link RobotFactory} where the specification is expected to be in the
+ * following format:
+ * <pre><code>{x} {y} {orientation}</code></pre>
+ * For example
+ * <pre><code>3 4 N</code></pre>
+ * will create a robot at {@code [3, 4]}, facing {@link Orientation#NORTH}.
+ */
 public class WhitespaceSeparatedRobotFactory extends AbstractRobotFactory {
 
   @Override

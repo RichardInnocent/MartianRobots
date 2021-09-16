@@ -8,6 +8,9 @@ import java.io.PrintStream;
 
 import com.dcsl.commands.parser.InvalidCommandException;
 
+/**
+ * The engine responsible for continually consuming user input and presenting results.
+ */
 public class CliEngine implements Runnable {
 
   private final InputProcessor inputProcessor;
@@ -44,6 +47,7 @@ public class CliEngine implements Runnable {
           inputProcessor.process(line).ifPresent(output::println);
           continue;
         } catch (InvalidCommandException e) {
+          // There's a nice format for this type of exception, so show that
           output.println("Unknown command: " + e.getCommand().charAt(e.getIndex()));
           output.println(e.getCommand());
           output.println(" ".repeat(e.getIndex()) + "^");

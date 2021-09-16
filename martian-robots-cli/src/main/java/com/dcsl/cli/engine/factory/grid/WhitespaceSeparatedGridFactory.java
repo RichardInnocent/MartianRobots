@@ -3,6 +3,13 @@ package com.dcsl.cli.engine.factory.grid;
 import com.dcsl.position.grid.Grid;
 import com.dcsl.position.grid.MarsGrid;
 
+/**
+ * Creates a grid given a specification in the following format:
+ * <pre><code>{x} {y}</code></pre>
+ * The minimum {@code x} and {@code y} values are always 0. For example:
+ * <pre><code>3 4</code></pre>
+ * will create a 3x4 grid starting at the origin.
+ */
 public class WhitespaceSeparatedGridFactory extends AbstractMarsGridFactory {
 
   @Override

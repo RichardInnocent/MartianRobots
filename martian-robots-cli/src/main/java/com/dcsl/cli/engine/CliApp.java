@@ -4,6 +4,9 @@ import com.dcsl.cli.engine.factory.grid.WhitespaceSeparatedGridFactory;
 import com.dcsl.cli.engine.factory.robot.WhitespaceSeparatedRobotFactory;
 import com.dcsl.commands.executor.SimpleCommandExecutor;
 
+/**
+ * An implementation of the application described in the specification.
+ */
 public class CliApp {
 
   private final CliEngine cliEngine;
@@ -12,6 +15,9 @@ public class CliApp {
     this.cliEngine = cliEngine;
   }
 
+  /**
+   * Starts the application.
+   */
   public void start() {
     cliEngine.run();
   }

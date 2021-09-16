@@ -7,6 +7,10 @@ import com.dcsl.commands.executor.CommandExecutor;
 import com.dcsl.position.OrientedPosition;
 import com.dcsl.robots.MarsRobot;
 
+/**
+ * The state induced when the robot and grid have been configured, and the system is waiting for the
+ * user to enter the command to give to the robot.
+ */
 public class AwaitingCommandState implements InterfaceState {
 
   private final CommandExecutor commandExecutor;
@@ -21,7 +25,7 @@ public class AwaitingCommandState implements InterfaceState {
   }
 
   @Override
-  public Optional<String> process(String input) {
+  public Optional<String> process(String input) throws IllegalArgumentException {
     MarsRobot robot = stateHolder.getRobot();
     commandExecutor.execute(input, robot);
     OrientedPosition position = robot.getOrientedPosition();

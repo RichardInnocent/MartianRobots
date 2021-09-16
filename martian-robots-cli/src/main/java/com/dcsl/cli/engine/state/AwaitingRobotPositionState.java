@@ -5,6 +5,9 @@ import java.util.Optional;
 import com.dcsl.cli.engine.StateHolder;
 import com.dcsl.cli.engine.factory.robot.RobotFactory;
 
+/**
+ * The state induced when the robot has not been configured.
+ */
 public class AwaitingRobotPositionState implements InterfaceState {
 
   private final RobotFactory robotFactory;
@@ -16,7 +19,7 @@ public class AwaitingRobotPositionState implements InterfaceState {
   }
 
   @Override
-  public Optional<String> process(String input) {
+  public Optional<String> process(String input) throws IllegalArgumentException {
     stateHolder.setRobot(robotFactory.createRobot(input));
     return Optional.empty();
   }

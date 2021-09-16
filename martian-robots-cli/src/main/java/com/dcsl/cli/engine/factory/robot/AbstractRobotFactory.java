@@ -4,6 +4,9 @@ import com.dcsl.position.OrientedPosition;
 import com.dcsl.robots.MarsRobot;
 import com.dcsl.robots.MartianRobot;
 
+/**
+ * Abstract implementation of a {@link RobotFactory}.
+ */
 public abstract class AbstractRobotFactory implements RobotFactory {
 
   @Override

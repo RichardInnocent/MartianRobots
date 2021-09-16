@@ -5,6 +5,9 @@ import java.util.Optional;
 import com.dcsl.cli.engine.StateHolder;
 import com.dcsl.cli.engine.factory.grid.GridFactory;
 
+/**
+ * The state induced when no grid has been configured.
+ */
 public class AwaitingGridConfigurationState implements InterfaceState {
 
   private final GridFactory gridFactory;
@@ -16,7 +19,7 @@ public class AwaitingGridConfigurationState implements InterfaceState {
   }
 
   @Override
-  public Optional<String> process(String input) {
+  public Optional<String> process(String input) throws IllegalArgumentException {
     inputProcessor.setGrid(gridFactory.createGrid(input));
     return Optional.empty();
   }
