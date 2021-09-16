@@ -8,5 +8,7 @@ public interface MarsRobot extends MarsObject {
 
   Optional<OrientedPosition> getOrientedPosition();
   Optional<OrientedPosition> moveForward();
+  Optional<OrientedPosition> rotateClockwise();
+  Optional<OrientedPosition> rotateAnticlockwise();
 
 }

@@ -41,4 +41,30 @@ public class MartianRobot implements MarsRobot {
     this.position = grid.containsPosition(newPosition) ? newPosition : null;
     return Optional.ofNullable(position);
   }
+
+  @Override
+  public Optional<OrientedPosition> rotateClockwise() {
+    if (position == null) {
+      return Optional.empty();
+    }
+    position = new FixedOrientedPosition(
+        position.getX(),
+        position.getY(),
+        position.getOrientation().getNextClockwiseOrientation()
+    );
+    return Optional.of(position);
+  }
+
+  @Override
+  public Optional<OrientedPosition> rotateAnticlockwise() {
+    if (position == null) {
+      return Optional.empty();
+    }
+    position = new FixedOrientedPosition(
+        position.getX(),
+        position.getY(),
+        position.getOrientation().getNextAnticlockwiseOrientation()
+    );
+    return Optional.of(position);
+  }
 }

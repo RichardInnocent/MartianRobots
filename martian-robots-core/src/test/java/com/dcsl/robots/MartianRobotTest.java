@@ -71,4 +71,36 @@ class MartianRobotTest {
     assertEquals(Optional.empty(), robot.getOrientedPosition());
   }
 
+  @Test
+  public void rotateClockwise_PositionKnown_TurnsToFaceNextClockwiseDirection() {
+    Orientation startingOrientation = Orientation.NORTH;
+    OrientedPosition startingPosition = new FixedOrientedPosition(0, 0, startingOrientation);
+    MartianRobot robot = new MartianRobot(grid, startingPosition);
+
+    Optional<OrientedPosition> newPosition = robot.rotateClockwise();
+    assertTrue(newPosition.isPresent());
+    OrientedPosition expectedPosition = new FixedOrientedPosition(
+        startingPosition.getX(),
+        startingPosition.getY(),
+        startingOrientation.getNextClockwiseOrientation()
+    );
+    assertEquals(expectedPosition, newPosition.get());
+  }
+
+  @Test
+  public void rotateAnticlockwise_PositionKnown_TurnsToFaceNextAnticlockwiseDirection() {
+    Orientation startingOrientation = Orientation.NORTH;
+    OrientedPosition startingPosition = new FixedOrientedPosition(0, 0, startingOrientation);
+    MartianRobot robot = new MartianRobot(grid, startingPosition);
+
+    Optional<OrientedPosition> newPosition = robot.rotateAnticlockwise();
+    assertTrue(newPosition.isPresent());
+    OrientedPosition expectedPosition = new FixedOrientedPosition(
+        startingPosition.getX(),
+        startingPosition.getY(),
+        startingOrientation.getNextAnticlockwiseOrientation()
+    );
+    assertEquals(expectedPosition, newPosition.get());
+  }
+
 }
