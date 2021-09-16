@@ -2,7 +2,7 @@ package com.dcsl.cli.engine;
 
 import com.dcsl.cli.engine.factory.grid.WhitespaceSeparatedGridFactory;
 import com.dcsl.cli.engine.factory.robot.WhitespaceSeparatedRobotFactory;
-import com.dcsl.commands.executor.SimpleCommandExecutor;
+import com.dcsl.commands.executor.SequentialCommandExecutor;
 
 /**
  * An implementation of the application described in the specification.
@@ -26,7 +26,7 @@ public class CliApp {
     StateControlledInputProcessor inputProcessor = new StateControlledInputProcessor(
         new WhitespaceSeparatedGridFactory(),
         new WhitespaceSeparatedRobotFactory(),
-        new SimpleCommandExecutor()
+        new SequentialCommandExecutor()
     );
     new CliApp(new CliEngine(inputProcessor, System.in, System.out)).start();
   }

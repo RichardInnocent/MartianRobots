@@ -15,13 +15,13 @@ import com.dcsl.robots.MarsRobot;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.*;
 
-class SimpleCommandExecutorTest {
+class SequentialCommandExecutorTest {
   private static final String COMMAND_SEQUENCE = "Test command";
 
   private final CommandSequenceParser parser = mock(CommandSequenceParser.class);
   private final MarsRobot robot = mock(MarsRobot.class);
   private final OrientedPosition robotPosition = mock(OrientedPosition.class);
-  private final SimpleCommandExecutor executor = new SimpleCommandExecutor(parser);
+  private final SequentialCommandExecutor executor = new SequentialCommandExecutor(parser);
 
   @BeforeEach
   public void setUp() {

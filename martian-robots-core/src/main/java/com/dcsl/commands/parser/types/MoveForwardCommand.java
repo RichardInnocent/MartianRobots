@@ -5,6 +5,9 @@ import java.util.function.Consumer;
 
 import com.dcsl.robots.MarsRobot;
 
+/**
+ * A command that instructs a robot to move forward by one unit.
+ */
 public class MoveForwardCommand implements Consumer<MarsRobot> {
 
   @Override

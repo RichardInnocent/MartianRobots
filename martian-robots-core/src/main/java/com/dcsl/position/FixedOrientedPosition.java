@@ -2,7 +2,10 @@ package com.dcsl.position;
 
 import java.util.Objects;
 
-public class FixedOrientedPosition implements OrientedPosition {
+/**
+ * An immutable implementation of an {@link OrientedPosition}.
+ */
+public final class FixedOrientedPosition implements OrientedPosition {
 
   private final int x;
   private final int y;

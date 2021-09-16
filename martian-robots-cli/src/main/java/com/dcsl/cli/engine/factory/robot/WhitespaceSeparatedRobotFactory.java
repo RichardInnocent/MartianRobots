@@ -3,7 +3,7 @@ package com.dcsl.cli.engine.factory.robot;
 import com.dcsl.position.FixedOrientedPosition;
 import com.dcsl.position.Orientation;
 import com.dcsl.robots.MarsRobot;
-import com.dcsl.robots.MartianRobot;
+import com.dcsl.robots.MarsRobotImpl;
 
 /**
  * An implementation of a {@link RobotFactory} where the specification is expected to be in the
@@ -31,6 +31,6 @@ public class WhitespaceSeparatedRobotFactory extends AbstractRobotFactory {
         .fromShortName(components[2])
         .orElseThrow(() -> new IllegalArgumentException("Invalid orientation"));
 
-    return new MartianRobot(new FixedOrientedPosition(x, y, orientation));
+    return new MarsRobotImpl(new FixedOrientedPosition(x, y, orientation));
   }
 }

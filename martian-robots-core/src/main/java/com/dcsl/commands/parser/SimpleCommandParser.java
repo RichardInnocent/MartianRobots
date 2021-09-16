@@ -10,6 +10,14 @@ import com.dcsl.commands.parser.types.RotateAnticlockwiseCommand;
 import com.dcsl.commands.parser.types.RotateClockwiseCommand;
 import com.dcsl.robots.MarsRobot;
 
+/**
+ * Simple implementation of the {@link CommandSequenceParser}, where only three commands are valid:
+ * <ul>
+ *   <li>{@code F}: {@link MoveForwardCommand}</li>
+ *   <li>{@code R}: {@link RotateClockwiseCommand}</li>
+ *   <li>{@code L}: {@link RotateAnticlockwiseCommand}</li>
+ * </ul>
+ */
 public class SimpleCommandParser implements CommandSequenceParser {
 
   @Override

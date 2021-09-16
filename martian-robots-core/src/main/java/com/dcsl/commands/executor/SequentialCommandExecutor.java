@@ -6,15 +6,18 @@ import com.dcsl.commands.parser.SimpleCommandParser;
 import com.dcsl.position.OrientedPosition;
 import com.dcsl.robots.MarsRobot;
 
-public class SimpleCommandExecutor implements CommandExecutor {
+/**
+ * Implementation of the {@link CommandExecutor}, where each command is processed sequentially.
+ */
+public class SequentialCommandExecutor implements CommandExecutor {
 
   private final CommandSequenceParser parser;
 
-  public SimpleCommandExecutor() {
+  public SequentialCommandExecutor() {
     this(new SimpleCommandParser());
   }
 
-  public SimpleCommandExecutor(CommandSequenceParser parser) {
+  public SequentialCommandExecutor(CommandSequenceParser parser) {
     this.parser = parser;
   }
 

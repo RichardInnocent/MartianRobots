@@ -13,7 +13,7 @@ import com.dcsl.cli.engine.state.AwaitingGridConfigurationState;
 import com.dcsl.cli.engine.state.AwaitingRobotPositionState;
 import com.dcsl.cli.engine.state.InterfaceState;
 import com.dcsl.commands.executor.CommandExecutor;
-import com.dcsl.commands.executor.SimpleCommandExecutor;
+import com.dcsl.commands.executor.SequentialCommandExecutor;
 import com.dcsl.position.grid.Grid;
 import com.dcsl.robots.MarsRobot;
 
@@ -31,7 +31,7 @@ public class StateControlledInputProcessor implements InputProcessor, StateHolde
     this(
         new WhitespaceSeparatedGridFactory(),
         new WhitespaceSeparatedRobotFactory(),
-        new SimpleCommandExecutor()
+        new SequentialCommandExecutor()
     );
   }
 

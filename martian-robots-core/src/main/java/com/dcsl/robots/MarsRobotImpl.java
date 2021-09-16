@@ -4,11 +4,14 @@ import com.dcsl.position.FixedOrientedPosition;
 import com.dcsl.position.OrientedPosition;
 import com.dcsl.position.Position;
 
-public class MartianRobot implements MarsRobot {
+/**
+ * An implementation of the {@link MarsRobot}.
+ */
+public class MarsRobotImpl implements MarsRobot {
 
   private OrientedPosition position;
 
-  public MartianRobot(OrientedPosition startingPosition) {
+  public MarsRobotImpl(OrientedPosition startingPosition) {
     this.position = startingPosition;
   }
 
