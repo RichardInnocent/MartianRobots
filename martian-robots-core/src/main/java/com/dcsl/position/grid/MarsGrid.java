@@ -1,5 +1,7 @@
 package com.dcsl.position.grid;
 
+import java.util.Objects;
+
 import com.dcsl.position.Position;
 
 public class MarsGrid implements Grid {
@@ -36,10 +38,46 @@ public class MarsGrid implements Grid {
     this.yMax = yMax;
   }
 
+  public int getXMin() {
+    return xMin;
+  }
+
+  public int getXMax() {
+    return xMax;
+  }
+
+  public int getYMin() {
+    return yMin;
+  }
+
+  public int getYMax() {
+    return yMax;
+  }
+
   @Override
   public boolean containsPosition(Position position) {
     int x = position.getX();
     int y = position.getY();
     return x >= xMin && x <= xMax && y >= yMin && y <= yMax;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (!(o instanceof Grid)) {
+      return false;
+    }
+    Grid marsGrid = (Grid) o;
+    return xMin == marsGrid.getXMin()
+        && xMax == marsGrid.getXMax()
+        && yMin == marsGrid.getYMin()
+        && yMax == marsGrid.getYMax();
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(xMin, xMax, yMin, yMax);
   }
 }

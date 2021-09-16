@@ -3,6 +3,8 @@ package com.dcsl.position.grid;
 import org.junit.jupiter.api.Test;
 
 import com.dcsl.position.Position;
+import nl.jqno.equalsverifier.EqualsVerifier;
+import nl.jqno.equalsverifier.Warning;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.mock;
@@ -18,6 +20,11 @@ class MarsGridTest {
   private static final int Y_MAX = MAX_Y_MAX;
 
   private final Grid grid = new MarsGrid(X_MIN, X_MAX, Y_MIN, Y_MAX);
+
+  @Test
+  public void equalsAndHashCode_Always_Valid() {
+    EqualsVerifier.forClass(MarsGrid.class).suppress(Warning.STRICT_INHERITANCE).verify();
+  }
 
   @Test
   public void constructor_xMaxIsEqualToXMin_ExceptionThrown() {

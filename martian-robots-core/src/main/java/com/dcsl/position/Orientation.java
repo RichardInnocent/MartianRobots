@@ -1,5 +1,7 @@
 package com.dcsl.position;
 
+import java.util.Arrays;
+import java.util.Optional;
 import java.util.function.Function;
 
 public enum Orientation {
@@ -17,11 +19,11 @@ public enum Orientation {
   }
 
   public Orientation getNextClockwiseOrientation() {
-    return Orientation.values()[(ordinal() + 1) % Orientation.values().length];
+    return values()[(ordinal() + 1) % values().length];
   }
 
   public Orientation getNextAnticlockwiseOrientation() {
-    return Orientation.values()[(3 + ordinal()) % Orientation.values().length];
+    return values()[(3 + ordinal()) % values().length];
   }
 
   public Position getPositionInFront(Position position) {
@@ -30,5 +32,12 @@ public enum Orientation {
 
   public String getShortName() {
     return shortName;
+  }
+
+  public static Optional<Orientation> fromShortName(String shortName) {
+    return Arrays
+        .stream(values())
+        .filter(orientation -> orientation.getShortName().equals(shortName))
+        .findAny();
   }
 }

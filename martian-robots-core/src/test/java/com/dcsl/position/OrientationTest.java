@@ -1,5 +1,7 @@
 package com.dcsl.position;
 
+import java.util.Optional;
+
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -140,6 +142,31 @@ class OrientationTest {
         Orientation.WEST.getPositionInFront(createPositionMock(xPosition, yPosition));
     assertEquals(xPosition - 1, position.getX());
     assertEquals(yPosition, position.getY());
+  }
+
+  @Test
+  public void fromShortName_ShortNameIsFound_ReturnsThatOrientation() {
+    assertEquals(
+        Optional.of(Orientation.NORTH),
+        Orientation.fromShortName(Orientation.NORTH.getShortName())
+    );
+    assertEquals(
+        Optional.of(Orientation.EAST),
+        Orientation.fromShortName(Orientation.EAST.getShortName())
+    );
+    assertEquals(
+        Optional.of(Orientation.SOUTH),
+        Orientation.fromShortName(Orientation.SOUTH.getShortName())
+    );
+    assertEquals(
+        Optional.of(Orientation.WEST),
+        Orientation.fromShortName(Orientation.WEST.getShortName())
+    );
+  }
+
+  @Test
+  public void fromShortName_ShortNameIsNotFound_ReturnsEmptyOptional() {
+    assertTrue(Orientation.fromShortName("Not an orientation").isEmpty());
   }
 
   private static Position createPositionMock(int x, int y) {
