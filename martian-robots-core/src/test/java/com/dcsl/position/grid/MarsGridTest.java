@@ -15,9 +15,9 @@ class MarsGridTest {
   private static final int MAX_X_MAX = 50;
   private static final int MAX_Y_MAX = 50;
   private static final int X_MIN = 0;
-  private static final int X_MAX = MAX_X_MAX;
+  private static final int X_MAX = MAX_X_MAX - 1;
   private static final int Y_MIN = 0;
-  private static final int Y_MAX = MAX_Y_MAX;
+  private static final int Y_MAX = MAX_Y_MAX - 1;
 
   private final Grid grid = new MarsGrid(X_MIN, X_MAX, Y_MIN, Y_MAX);
 
@@ -86,7 +86,7 @@ class MarsGridTest {
 
   @Test
   public void containsPosition_PositionIsAtMaxXAndYPosition_ReturnsTrue() {
-    assertTrue(grid.containsPosition(createPositionMock(X_MAX, Y_MAX)));
+    assertTrue(grid.containsPosition(createPositionMock(X_MAX-1, Y_MAX-1)));
   }
 
   @Test

@@ -1,10 +1,8 @@
 package com.dcsl.cli.engine;
 
+import com.dcsl.cli.engine.factory.grid.WhitespaceSeparatedGridFactory;
+import com.dcsl.cli.engine.factory.robot.WhitespaceSeparatedRobotFactory;
 import com.dcsl.commands.executor.SimpleCommandExecutor;
-import com.dcsl.position.FixedOrientedPosition;
-import com.dcsl.position.Orientation;
-import com.dcsl.robots.MarsRobot;
-import com.dcsl.robots.MartianRobot;
 
 public class CliApp {
 
@@ -19,8 +17,12 @@ public class CliApp {
   }
 
   public static void main(String[] args) {
-    MarsRobot robot = new MartianRobot(new FixedOrientedPosition(1, 1, Orientation.EAST));
-    new CliApp(new CliEngine(robot, new SimpleCommandExecutor())).start();
+    StateControlledInputProcessor inputProcessor = new StateControlledInputProcessor(
+        new WhitespaceSeparatedGridFactory(),
+        new WhitespaceSeparatedRobotFactory(),
+        new SimpleCommandExecutor()
+    );
+    new CliApp(new CliEngine(inputProcessor, System.in, System.out)).start();
   }
 
 }

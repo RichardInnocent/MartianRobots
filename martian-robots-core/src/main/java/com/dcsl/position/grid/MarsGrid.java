@@ -58,7 +58,7 @@ public class MarsGrid implements Grid {
   public boolean containsPosition(Position position) {
     int x = position.getX();
     int y = position.getY();
-    return x >= xMin && x <= xMax && y >= yMin && y <= yMax;
+    return x >= xMin && x < xMax && y >= yMin && y < yMax;
   }
 
   @Override

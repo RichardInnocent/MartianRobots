@@ -13,21 +13,12 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import com.dcsl.commands.executor.CommandExecutor;
-import com.dcsl.commands.executor.SimpleCommandExecutor;
-import com.dcsl.position.FixedOrientedPosition;
-import com.dcsl.position.Orientation;
-import com.dcsl.robots.MarsRobot;
-import com.dcsl.robots.MartianRobot;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class CliEngineIntTest {
 
   private static final InputStream ORIGINAL_INPUT = System.in;
   private static final PrintStream ORIGINAL_OUTPUT = System.out;
-
-  private final MarsRobot robot =
-      new MartianRobot(new FixedOrientedPosition(1, 1, Orientation.EAST));
-  private final CommandExecutor commandExecutor = new SimpleCommandExecutor();
 
   private final ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
   private final PrintStream output = new PrintStream(outputStream, true, StandardCharsets.UTF_8);
@@ -52,14 +43,21 @@ class CliEngineIntTest {
   public void run_GivenExample_InputsAndOutputsAsExpected() {
     configureInputToReturn(
         "5 3",
+        "1 1 E",
         "RFRFRFRF",
+        "3 2 N",
         "FRRFLLFFRRFLL",
+        "0 3 W",
         "LLFFFRFLFL"
     );
 
-    new CliEngine(robot, commandExecutor).run();
-    getAllPrintedLines().forEach(ORIGINAL_OUTPUT::println);
-    ORIGINAL_OUTPUT.println("Hello world!");
+    CliEngine engine = new CliEngine(new StateControlledInputProcessor());
+    engine.run();
+
+    List<String> printedLines = getAllPrintedLines();
+    assertEquals("1 1 E", printedLines.get(0));
+    assertEquals("3 3 N LOST", printedLines.get(1));
+    assertEquals("4 2 N", printedLines.get(2));
   }
 
   private void configureInputToReturn(String... inputLines) {
