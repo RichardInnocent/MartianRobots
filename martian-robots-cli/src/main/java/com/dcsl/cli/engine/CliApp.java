@@ -19,7 +19,7 @@ public class CliApp {
   }
 
   public static void main(String[] args) {
-    MarsRobot robot = new MartianRobot(new FixedOrientedPosition(0, 0, Orientation.NORTH));
+    MarsRobot robot = new MartianRobot(new FixedOrientedPosition(1, 1, Orientation.EAST));
     new CliApp(new CliEngine(robot, new SimpleCommandExecutor())).start();
   }
 
