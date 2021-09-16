@@ -10,10 +10,12 @@ import static org.mockito.Mockito.when;
 
 class MarsGridTest {
 
+  private static final int MAX_X_MAX = 50;
+  private static final int MAX_Y_MAX = 50;
   private static final int X_MIN = 0;
-  private static final int X_MAX = 10;
+  private static final int X_MAX = MAX_X_MAX;
   private static final int Y_MIN = 0;
-  private static final int Y_MAX = 10;
+  private static final int Y_MAX = MAX_Y_MAX;
 
   private final Grid grid = new MarsGrid(X_MIN, X_MAX, Y_MIN, Y_MAX);
 
@@ -46,6 +48,22 @@ class MarsGridTest {
     assertThrows(
         IllegalArgumentException.class,
         () -> new MarsGrid(X_MIN, X_MAX, Y_MIN, Y_MIN - 1)
+    );
+  }
+
+  @Test
+  public void constructor_xMaxIsGreaterThanMaxAllowedValue_ExceptionThrown() {
+    assertThrows(
+        IllegalArgumentException.class,
+        () -> new MarsGrid(X_MIN, MAX_X_MAX + 1, Y_MIN, Y_MAX)
+    );
+  }
+
+  @Test
+  public void constructor_yMaxIsGreaterThanMaxAllowedValue_ExceptionThrown() {
+    assertThrows(
+        IllegalArgumentException.class,
+        () -> new MarsGrid(X_MIN, X_MAX, Y_MIN, MAX_Y_MAX + 1)
     );
   }
 
