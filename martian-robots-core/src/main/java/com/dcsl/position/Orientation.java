@@ -3,14 +3,16 @@ package com.dcsl.position;
 import java.util.function.Function;
 
 public enum Orientation {
-  NORTH(position -> new FixedPosition(position.getX(), position.getY() + 1)),
-  EAST(position -> new FixedPosition(position.getX() + 1, position.getY())),
-  SOUTH(position -> new FixedPosition(position.getX(), position.getY() - 1)),
-  WEST(position -> new FixedPosition(position.getX() - 1, position.getY()));
+  NORTH("N", position -> new FixedPosition(position.getX(), position.getY() + 1)),
+  EAST("E", position -> new FixedPosition(position.getX() + 1, position.getY())),
+  SOUTH("S", position -> new FixedPosition(position.getX(), position.getY() - 1)),
+  WEST("W", position -> new FixedPosition(position.getX() - 1, position.getY()));
 
+  private final String shortName;
   private final Function<Position, Position> movingForwardsFunction;
 
-  Orientation(Function<Position, Position> movingForwardsFunction) {
+  Orientation(String shortName, Function<Position, Position> movingForwardsFunction) {
+    this.shortName = shortName;
     this.movingForwardsFunction = movingForwardsFunction;
   }
 
@@ -24,5 +26,9 @@ public enum Orientation {
 
   public Position getPositionInFront(Position position) {
     return movingForwardsFunction.apply(position);
+  }
+
+  public String getShortName() {
+    return shortName;
   }
 }

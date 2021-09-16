@@ -11,6 +11,14 @@ class OrientationTest {
   private static final Position ORIGIN = createPositionMock(0, 0);
 
   @Test
+  public void getShortName_Always_Correct() {
+    assertEquals("N", Orientation.NORTH.getShortName());
+    assertEquals("E", Orientation.EAST.getShortName());
+    assertEquals("S", Orientation.SOUTH.getShortName());
+    assertEquals("W", Orientation.WEST.getShortName());
+  }
+
+  @Test
   public void getNextClockwiseOrientation_Always_Correct() {
     assertEquals(Orientation.EAST, Orientation.NORTH.getNextClockwiseOrientation());
     assertEquals(Orientation.SOUTH, Orientation.EAST.getNextClockwiseOrientation());
