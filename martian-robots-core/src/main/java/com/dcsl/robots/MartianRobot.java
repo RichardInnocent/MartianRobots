@@ -1,70 +1,50 @@
 package com.dcsl.robots;
 
-import java.util.Optional;
-
 import com.dcsl.position.FixedOrientedPosition;
-import com.dcsl.position.FixedPosition;
 import com.dcsl.position.OrientedPosition;
 import com.dcsl.position.Position;
-import com.dcsl.position.grid.Grid;
 
 public class MartianRobot implements MarsRobot {
 
-  private final Grid grid;
   private OrientedPosition position;
 
-  public MartianRobot(Grid grid) {
-    this(grid, null);
-  }
-
-  public MartianRobot(Grid grid, OrientedPosition startingPosition) {
-    this.grid = grid;
+  public MartianRobot(OrientedPosition startingPosition) {
     this.position = startingPosition;
   }
 
   @Override
-  public Optional<Position> getPosition() {
-    return Optional.ofNullable(position).map(FixedPosition::new);
+  public Position getPosition() {
+    return position;
   }
 
   @Override
-  public Optional<OrientedPosition> getOrientedPosition() {
-    return Optional.ofNullable(position).map(FixedOrientedPosition::new);
+  public OrientedPosition getOrientedPosition() {
+    return position;
   }
 
   @Override
-  public Optional<OrientedPosition> moveForward() {
-    if (position == null) {
-      return Optional.empty();
-    }
-    OrientedPosition newPosition = position.getPositionInFront();
-    this.position = grid.containsPosition(newPosition) ? newPosition : null;
-    return Optional.ofNullable(position);
+  public OrientedPosition moveForward() {
+    position = position.getPositionInFront();
+    return position;
   }
 
   @Override
-  public Optional<OrientedPosition> rotateClockwise() {
-    if (position == null) {
-      return Optional.empty();
-    }
+  public OrientedPosition rotateClockwise() {
     position = new FixedOrientedPosition(
         position.getX(),
         position.getY(),
         position.getOrientation().getNextClockwiseOrientation()
     );
-    return Optional.of(position);
+    return position;
   }
 
   @Override
-  public Optional<OrientedPosition> rotateAnticlockwise() {
-    if (position == null) {
-      return Optional.empty();
-    }
+  public OrientedPosition rotateAnticlockwise() {
     position = new FixedOrientedPosition(
         position.getX(),
         position.getY(),
         position.getOrientation().getNextAnticlockwiseOrientation()
     );
-    return Optional.of(position);
+    return position;
   }
 }

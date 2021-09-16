@@ -9,6 +9,8 @@ import java.io.PrintStream;
 import com.dcsl.commands.executor.CommandExecutor;
 import com.dcsl.commands.parser.InvalidCommandException;
 import com.dcsl.position.OrientedPosition;
+import com.dcsl.position.grid.Grid;
+import com.dcsl.position.grid.MarsGrid;
 import com.dcsl.robots.MarsRobot;
 
 public class CliEngine implements Runnable {
@@ -44,17 +46,46 @@ public class CliEngine implements Runnable {
 
   private void runAndThrowExceptions() throws IOException {
     try (BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream))) {
+      Grid grid = initialiseGrid(reader);
+
       while (true) {
         String command = reader.readLine();
-        executeCommand(command);
+        executeCommand(command, grid);
       }
     }
   }
 
-  private void executeCommand(String command) {
+  private Grid initialiseGrid(BufferedReader reader) throws IOException {
+    while (true) {
+      try {
+        return initialiseGridAndThrowExceptions(reader);
+      } catch (IllegalArgumentException e) {
+        output.println("Invalid input: " + e.getMessage());
+      }
+    }
+  }
+
+  private Grid initialiseGridAndThrowExceptions(BufferedReader reader)
+      throws IOException, IllegalArgumentException {
+    String gridCoordinates = reader.readLine();
+    String[] components = gridCoordinates.split("\\s+");
+    if (components.length != 2) {
+      throw new IllegalArgumentException(
+          "You must configure the size of the grid by specifying the max x and y coordinates "
+              + "respectively. For example:\n3 4"
+      );
+    }
+
+    int maxX = Integer.parseInt(components[0]);
+    int maxY = Integer.parseInt(components[1]);
+
+    return new MarsGrid(0, maxX, 0, maxY);
+  }
+
+  private void executeCommand(String command, Grid grid) {
     try {
       executor.execute(command, robot);
-      output.println(robot.getOrientedPosition().map(this::toOutputFormat).orElse("LOST"));
+      output.println(toOutputFormat(robot.getOrientedPosition(), grid));
     } catch (InvalidCommandException e) {
       output.println("Invalid input detected: " + e.getCommand().charAt(e.getIndex()));
       output.print(e.getCommand());
@@ -62,8 +93,14 @@ public class CliEngine implements Runnable {
     }
   }
 
-  private String toOutputFormat(OrientedPosition position) {
+  private String toOutputFormat(OrientedPosition position, Grid grid) {
     // TODO switch to character format
-    return String.format("%d %d %s", position.getX(), position.getY(), position.getOrientation());
+    return String.format(
+        "%d %d %s%s",
+        position.getX(),
+        position.getY(),
+        position.getOrientation(),
+        grid.containsPosition(position) ? "" : " LOST"
+    );
   }
 }

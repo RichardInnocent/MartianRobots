@@ -2,7 +2,6 @@ package com.dcsl.commands.executor;
 
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.Optional;
 import java.util.function.Consumer;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -14,7 +13,6 @@ import com.dcsl.position.OrientedPosition;
 import com.dcsl.robots.MarsRobot;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.*;
 
 class SimpleCommandExecutorTest {
@@ -27,41 +25,25 @@ class SimpleCommandExecutorTest {
 
   @BeforeEach
   public void setUp() {
-    when(robot.getOrientedPosition()).thenReturn(Optional.of(robotPosition));
+    when(robot.getOrientedPosition()).thenReturn(robotPosition);
   }
 
   @Test
-  public void execute_ParserReturnsNoCommandsAndRobotPositionKnown_NoCommandsExecuted() {
+  public void execute_ParserReturnsNoCommands_NoCommandsExecuted() {
     when(parser.getCommands(COMMAND_SEQUENCE)).thenReturn(Collections.emptyList());
-    assertEquals(Optional.of(robotPosition), executor.execute(COMMAND_SEQUENCE, robot));
+    assertEquals(robotPosition, executor.execute(COMMAND_SEQUENCE, robot));
   }
 
   @Test
-  public void execute_ParseReturnsNoCommandsAndRobotPositionIsNotKnown_NoCommandsExecuted() {
-    when(robot.getOrientedPosition()).thenReturn(Optional.empty());
-    when(parser.getCommands(COMMAND_SEQUENCE)).thenReturn(Collections.emptyList());
-    assertTrue(executor.execute(COMMAND_SEQUENCE, robot).isEmpty());
-  }
-
-  @Test
-  public void execute_ParseReturnsSingleCommandAndRobotPositionIsKnown_CommandExecuted() {
+  public void execute_ParseReturnsSingleCommand_CommandExecuted() {
     Consumer<MarsRobot> consumer = createConsumerMock();
     when(parser.getCommands(COMMAND_SEQUENCE)).thenReturn(Collections.singletonList(consumer));
-    assertEquals(Optional.of(robotPosition), executor.execute(COMMAND_SEQUENCE, robot));
+    assertEquals(robotPosition, executor.execute(COMMAND_SEQUENCE, robot));
     verify(consumer, times(1)).accept(robot);
   }
 
   @Test
-  public void execute_ParseReturnsSingleCommandAndRobotPositionIsNotKnown_CommandExecuted() {
-    when(robot.getOrientedPosition()).thenReturn(Optional.empty());
-    Consumer<MarsRobot> consumer = createConsumerMock();
-    when(parser.getCommands(COMMAND_SEQUENCE)).thenReturn(Collections.singletonList(consumer));
-    assertTrue(executor.execute(COMMAND_SEQUENCE, robot).isEmpty());
-    verify(consumer, times(1)).accept(robot);
-  }
-
-  @Test
-  public void execute_ParserReturnsMultipleCommandsAndRobotPositionIsKnown_CommandsExecutedInOrder() {
+  public void execute_ParserReturnsMultipleCommands_CommandsExecutedInOrder() {
     Consumer<MarsRobot> consumer1 = createConsumerMock();
     Consumer<MarsRobot> consumer2 = createConsumerMock();
     Consumer<MarsRobot> consumer3 = createConsumerMock();
@@ -72,29 +54,7 @@ class SimpleCommandExecutorTest {
         consumer3
     ));
 
-    assertEquals(Optional.of(robotPosition), executor.execute(COMMAND_SEQUENCE, robot));
-
-    InOrder inOrder = inOrder(consumer1, consumer2, consumer3);
-    inOrder.verify(consumer1, times(1)).accept(robot);
-    inOrder.verify(consumer2, times(1)).accept(robot);
-    inOrder.verify(consumer3, times(1)).accept(robot);
-  }
-
-  @Test
-  public void execute_ParserReturnsMultipleCommandsAndRobotPositionIsNotKnown_CommandsExecutedInOrder() {
-    when(robot.getOrientedPosition()).thenReturn(Optional.empty());
-
-    Consumer<MarsRobot> consumer1 = createConsumerMock();
-    Consumer<MarsRobot> consumer2 = createConsumerMock();
-    Consumer<MarsRobot> consumer3 = createConsumerMock();
-
-    when(parser.getCommands(COMMAND_SEQUENCE)).thenReturn(Arrays.asList(
-        consumer1,
-        consumer2,
-        consumer3
-    ));
-
-    assertTrue(executor.execute(COMMAND_SEQUENCE, robot).isEmpty());
+    assertEquals(robotPosition, executor.execute(COMMAND_SEQUENCE, robot));
 
     InOrder inOrder = inOrder(consumer1, consumer2, consumer3);
     inOrder.verify(consumer1, times(1)).accept(robot);

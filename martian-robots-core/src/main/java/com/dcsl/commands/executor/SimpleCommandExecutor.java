@@ -1,7 +1,5 @@
 package com.dcsl.commands.executor;
 
-import java.util.Optional;
-
 import com.dcsl.commands.parser.CommandSequenceParser;
 import com.dcsl.commands.parser.InvalidCommandException;
 import com.dcsl.commands.parser.SimpleCommandParser;
@@ -21,7 +19,7 @@ public class SimpleCommandExecutor implements CommandExecutor {
   }
 
   @Override
-  public Optional<OrientedPosition> execute(String commandSequence, MarsRobot robot)
+  public OrientedPosition execute(String commandSequence, MarsRobot robot)
       throws InvalidCommandException {
     parser.getCommands(commandSequence).forEach(command -> command.accept(robot));
     return robot.getOrientedPosition();

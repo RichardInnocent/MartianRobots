@@ -18,6 +18,38 @@ class MarsGridTest {
   private final Grid grid = new MarsGrid(X_MIN, X_MAX, Y_MIN, Y_MAX);
 
   @Test
+  public void constructor_xMaxIsEqualToXMin_ExceptionThrown() {
+    assertThrows(
+        IllegalArgumentException.class,
+        () -> new MarsGrid(X_MIN, X_MIN, Y_MIN, Y_MAX)
+    );
+  }
+
+  @Test
+  public void constructor_xMaxIsLessThanXMin_ExceptionThrown() {
+    assertThrows(
+        IllegalArgumentException.class,
+        () -> new MarsGrid(X_MIN, X_MIN - 1, Y_MIN, Y_MAX)
+    );
+  }
+
+  @Test
+  public void constructor_yMaxIsEqualToYMin_ExceptionThrown() {
+    assertThrows(
+        IllegalArgumentException.class,
+        () -> new MarsGrid(X_MIN, X_MAX, Y_MIN, Y_MIN)
+    );
+  }
+
+  @Test
+  public void constructor_yMaxIsLessThanYMin_ExceptionThrown() {
+    assertThrows(
+        IllegalArgumentException.class,
+        () -> new MarsGrid(X_MIN, X_MAX, Y_MIN, Y_MIN - 1)
+    );
+  }
+
+  @Test
   public void containsPosition_PositionIsInMiddleOfGrid_ReturnsTrue() {
     assertTrue(grid.containsPosition(createPositionMock((X_MAX - X_MIN) / 2, (Y_MAX - Y_MIN) / 2)));
   }

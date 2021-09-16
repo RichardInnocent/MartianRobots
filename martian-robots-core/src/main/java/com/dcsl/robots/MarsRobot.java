@@ -1,14 +1,12 @@
 package com.dcsl.robots;
 
-import java.util.Optional;
-
 import com.dcsl.position.OrientedPosition;
 
 public interface MarsRobot extends MarsObject {
 
-  Optional<OrientedPosition> getOrientedPosition();
-  Optional<OrientedPosition> moveForward();
-  Optional<OrientedPosition> rotateClockwise();
-  Optional<OrientedPosition> rotateAnticlockwise();
+  OrientedPosition getOrientedPosition();
+  OrientedPosition moveForward();
+  OrientedPosition rotateClockwise();
+  OrientedPosition rotateAnticlockwise();
 
 }

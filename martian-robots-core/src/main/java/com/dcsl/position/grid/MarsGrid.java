@@ -9,7 +9,14 @@ public class MarsGrid implements Grid {
   private final int yMin;
   private final int yMax;
 
-  public MarsGrid(int xMin, int xMax, int yMin, int yMax) {
+  public MarsGrid(int xMin, int xMax, int yMin, int yMax) throws IllegalArgumentException {
+    if (xMax <= xMin) {
+      throw new IllegalArgumentException("x max is less than or equal to x min");
+    }
+    if (yMax <= yMin) {
+      throw new IllegalArgumentException("y max is less than or equal to y min");
+    }
+
     this.xMin = xMin;
     this.xMax = xMax;
     this.yMin = yMin;

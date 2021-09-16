@@ -32,11 +32,11 @@ public class FixedPosition implements Position {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof FixedPosition)) {
+    if (!(o instanceof Position)) {
       return false;
     }
-    FixedPosition that = (FixedPosition) o;
-    return x == that.x && y == that.y;
+    Position that = (Position) o;
+    return x == that.getX() && y == that.getY();
   }
 
   @Override
